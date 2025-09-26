@@ -28,6 +28,42 @@ Additionally, the project includes a **Filament Admin Dashboard** for enhanced u
 
 ---
 
+## Screenshots
+
+<div align="center">
+
+<table>
+  <tr>
+    <td><img src="./public/screenshots/1.png" width="250"/></td>
+    <td><img src="./public/screenshots/2.png" width="250"/></td>
+    <td><img src="./public/screenshots/3.png" width="250"/></td>
+  </tr>
+  <tr>
+    <td><img src="./public/screenshots/4.png" width="250"/></td>
+    <td><img src="./public/screenshots/5.png" width="250"/></td>
+    <td><img src="./public/screenshots/6.png" width="250"/></td>
+  </tr>
+  <tr>
+    <td><img src="./public/screenshots/7.png" width="250"/></td>
+    <td><img src="./public/screenshots/8.png" width="250"/></td>
+    <td><img src="./public/screenshots/9.png" width="250"/></td>
+  </tr>
+  <tr>
+    <td><img src="./public/screenshots/10.png" width="250"/></td>
+    <td><img src="./public/screenshots/11.png" width="250"/></td>
+    <td><img src="./public/screenshots/12.png" width="250"/></td>
+  </tr>
+  <tr>
+    <td><img src="./public/screenshots/13.png" width="250"/></td>
+    <td><img src="./public/screenshots/14.png" width="250"/></td>
+    <td><img src="./public/screenshots/15.png" width="250"/></td>
+  </tr>
+</table>
+
+</div>
+
+---
+
 ## Features
 
 ### Authentication
@@ -138,42 +174,6 @@ Use the following credentials to access the Filament Dashboard:
 Email: admin@outlook.com
 Password: admin
 ```
-
----
-
-## Screenshots
-
-<div align="center">
-
-<table>
-  <tr>
-    <td><img src="./public/screenshots/1.png" width="250"/></td>
-    <td><img src="./public/screenshots/2.png" width="250"/></td>
-    <td><img src="./public/screenshots/3.png" width="250"/></td>
-  </tr>
-  <tr>
-    <td><img src="./public/screenshots/4.png" width="250"/></td>
-    <td><img src="./public/screenshots/5.png" width="250"/></td>
-    <td><img src="./public/screenshots/6.png" width="250"/></td>
-  </tr>
-  <tr>
-    <td><img src="./public/screenshots/7.png" width="250"/></td>
-    <td><img src="./public/screenshots/8.png" width="250"/></td>
-    <td><img src="./public/screenshots/9.png" width="250"/></td>
-  </tr>
-  <tr>
-    <td><img src="./public/screenshots/10.png" width="250"/></td>
-    <td><img src="./public/screenshots/11.png" width="250"/></td>
-    <td><img src="./public/screenshots/12.png" width="250"/></td>
-  </tr>
-  <tr>
-    <td><img src="./public/screenshots/13.png" width="250"/></td>
-    <td><img src="./public/screenshots/14.png" width="250"/></td>
-    <td><img src="./public/screenshots/15.png" width="250"/></td>
-  </tr>
-</table>
-
-</div>
 
 ---
 

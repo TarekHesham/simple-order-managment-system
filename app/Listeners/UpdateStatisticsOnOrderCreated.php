@@ -37,15 +37,18 @@ class UpdateStatisticsOnOrderCreated
                 ]
             );
 
-            $stat->increment('total_amount_paid', $order->total_amount);
-            $stat->increment('total_orders');
-            $stat->increment('total_items', $order->items()->sum('quantity'));
+            $itemsCount = $order->items()->sum('quantity');
+
+            $stat->total_amount_paid += $order->total_amount;
+            $stat->total_orders      += 1;
+            $stat->total_items       += $itemsCount;
 
             if ($stat->first_order_date === null) {
                 $stat->first_order_date = $order->created_at;
             }
 
             $stat->last_order_date = $order->created_at;
+
             $stat->save();
         });
     }

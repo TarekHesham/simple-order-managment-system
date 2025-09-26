@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +15,10 @@ use App\Http\Controllers\Api\V1\Staff\{
     CustomerController as StaffCustomerController,
     ProductController as StaffProductController
 };
-use App\Http\Controllers\Api\V1\Shared\AuthController;
+use App\Http\Controllers\Api\V1\Shared\{
+    AuthController,
+    OrderController
+};
 
 // Authintication routes
 Route::withoutMiddleware('auth:sanctum')->prefix('auth')->group(function () {

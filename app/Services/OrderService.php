@@ -68,7 +68,7 @@ class OrderService
             $order->save();
 
             // Event dispatched after order is created
-            OrderCreated::dispatch($order, $items, Auth::id());
+            OrderCreated::dispatch($order, $items, Auth::user());
 
             return $order->load(['customer', 'items.product', 'sale.user']);
         });
@@ -98,20 +98,20 @@ class OrderService
 
             $items = $order->items()->lockForUpdate()->get();
 
-            $remaining = $amount;
-            $distributed = 0;
-
+            $remaining    = $amount;
+            $distributed  = 0;
             $refundedItems = collect();
+            $stockUpdates  = []; // لتجميع الكميات الراجعة للمخزون
+
             foreach ($items as $index => $item) {
                 if ($remaining <= 0) break;
 
                 $itemRemaining = round($item->total_price - $item->refunded_amount, 2);
                 if ($itemRemaining <= 0) continue;
 
-                // proportionally take from this item
                 $take = min($itemRemaining, round(($item->total_price / $order->total_amount) * $amount, 2));
 
-                // Last item take what's left to avoid rounding gaps
+                // آخر Item بياخد المتبقي علشان ميحصلش rounding gaps
                 if ($index === $items->count() - 1) {
                     $take = min($itemRemaining, $remaining);
                 }
@@ -131,12 +131,20 @@ class OrderService
                     'amount'        => $take,
                 ]);
 
-                $item->refunded_amount = round($item->refunded_amount + $take, 2);
+                $item->refunded_amount   = round($item->refunded_amount + $take, 2);
                 $item->refunded_quantity = $item->refunded_quantity + $proportionalQty;
                 $item->save();
 
+                // هنا بدل ما نعمل increment لكل منتج بنجمعهم
+                if ($proportionalQty > 0) {
+                    if (!isset($stockUpdates[$item->product_id])) {
+                        $stockUpdates[$item->product_id] = 0;
+                    }
+                    $stockUpdates[$item->product_id] += $proportionalQty;
+                }
+
                 $distributed += $take;
-                $remaining = round($remaining - $take, 2);
+                $remaining    = round($remaining - $take, 2);
             }
 
             if ($refundedItems->isNotEmpty()) {
@@ -144,7 +152,6 @@ class OrderService
             }
 
             if ($remaining > 0) {
-                // Refund remaining amount from other items
                 $itemsReturn = collect();
                 foreach ($items as $item) {
                     $itemRemaining = round($item->total_price - $item->refunded_amount, 2);
@@ -164,7 +171,7 @@ class OrderService
                     $item->save();
 
                     $distributed += $take;
-                    $remaining = round($remaining - $take, 2);
+                    $remaining    = round($remaining - $take, 2);
 
                     if ($remaining <= 0) break;
                 }
@@ -174,9 +181,14 @@ class OrderService
                 }
             }
 
+            // هنا نعمل Bulk update للمخزون
+            foreach ($stockUpdates as $productId => $qty) {
+                Product::where('id', $productId)->lockForUpdate()->increment('stock', $qty);
+            }
+
             $order->refunded_amount = round($order->refunded_amount + $distributed, 2);
 
-            if (bccomp((string)$order->refunded_amount, (string)$order->total_amount, 2) === 0) {
+            if (bccomp((string) $order->refunded_amount, (string) $order->total_amount, 2) === 0) {
                 $order->status = 'refunded';
             } else {
                 $order->status = 'partial_refund';
@@ -184,7 +196,7 @@ class OrderService
 
             $order->save();
 
-            OrderUpdated::dispatch($order, Auth::id());
+            OrderUpdated::dispatch($order, Auth::user());
 
             return $order->load(['customer', 'items.product', 'items.returns']);
         });
@@ -232,9 +244,11 @@ class OrderService
                 $order->status = 'partial_refund';
             }
 
+            $item->product()->lockForUpdate()->increment('stock', $quantity);
+
             $order->save();
 
-            OrderUpdated::dispatch($order, Auth::id());
+            OrderUpdated::dispatch($order, Auth::user());
 
             return $item->load(['order', 'returns']);
         });

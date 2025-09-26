@@ -1,61 +1,185 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Simple Order Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A **Simple Order Management System** built with **Laravel 12** and **MySQL**, designed to manage customers, products, and orders efficiently. This project was completed as a technical assessment for **SIDEUP**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This system allows users to:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   Manage **customers** (CRUD + search/filter)
+-   Manage **products** (CRUD + stock management + pagination)
+-   Create and manage **orders** (select customer & products, update stock, etc...)
+-   View **reports & dashboard** (total orders, revenue, top 5 customers)
+-   And more...
 
-## Learning Laravel
+Additionally, the project includes a **Filament Admin Dashboard** for enhanced usability.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Database
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   ERD created for all entities
+-   Laravel Migrations and Seeders included
+-   Tables:
 
-## Laravel Sponsors
+<img src="./public/ERD.png" style="margin-x:auto;"/>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Features
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Authentication
 
-## Contributing
+-   Protected routes for authenticated users
+-   Role-based access (Admin/Staff) implemented
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Suppliers Management
 
-## Code of Conduct
+-   CRUD operations
+-   Search/filter
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Customer Management
 
-## Security Vulnerabilities
+-   CRUD operations
+-   Search/filter
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Product Management
 
-## License
+-   CRUD operations (name, price, stock)
+-   Pagination for product listing
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Receives Management
+
+-   CRUD operations
+-   Pagination for product listing
+
+### Sale Management
+
+-   CRUD operations
+-   Pagination for product listing
+
+### Order Management
+
+-   Create orders with multiple products
+-   Automatically decrease product stock when sale or receive
+-   View order details (customer, items, total)
+-   Refound order or partial refund (restock)
+
+### Reporting & Dashboard
+
+-   Dashboard showing:
+    -   Total orders
+    -   Total revenue
+    -   Top 5 customers
+-   Filament Admin Panel integration
+
+---
+
+## Technical Stack
+
+-   **Backend:** Laravel 12, PHP 8+
+-   **Database:** MySQL
+-   **ORM:** Eloquent
+-   **Frontend:** Filament Admin Panel
+-   **Architecture:** MVC
+-   **Authentication:** Laravel Sunctom
+-   **Validation:** Form Requests
+-   **Deployment-ready:** Environment variables via `.env`
+
+---
+
+## Installation & Setup
+
+1. **Clone the repository**
+
+    ```bash
+    git clone https://github.com/TarekHesham/simple-order-managment-system.git
+    cd simple-order-managment-system
+    ```
+
+2. **Install dependencies**
+
+    ```bash
+    composer install
+    ```
+
+3. **Configure environment**
+
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
+    Update `.env` with your database credentials.
+
+4. **Run migrations & seeders**
+
+    ```bash
+    php artisan migrate --seed
+    ```
+
+5. **Start the local server**
+
+    ```bash
+    php artisan serve
+    ```
+
+    Access the app at `http://127.0.0.1:8000/dashboard`
+
+---
+
+## Admin Credentials
+
+Use the following credentials to access the Filament Dashboard:
+
+```
+Email: admin@outlook.com
+Password: admin
+```
+
+---
+
+## Screenshots
+
+<div align="center">
+
+<table>
+  <tr>
+    <td><img src="./public/screenshots/1.png" width="250"/></td>
+    <td><img src="./public/screenshots/2.png" width="250"/></td>
+    <td><img src="./public/screenshots/3.png" width="250"/></td>
+  </tr>
+  <tr>
+    <td><img src="./public/screenshots/4.png" width="250"/></td>
+    <td><img src="./public/screenshots/5.png" width="250"/></td>
+    <td><img src="./public/screenshots/6.png" width="250"/></td>
+  </tr>
+  <tr>
+    <td><img src="./public/screenshots/7.png" width="250"/></td>
+    <td><img src="./public/screenshots/8.png" width="250"/></td>
+    <td><img src="./public/screenshots/9.png" width="250"/></td>
+  </tr>
+  <tr>
+    <td><img src="./public/screenshots/10.png" width="250"/></td>
+    <td><img src="./public/screenshots/11.png" width="250"/></td>
+    <td><img src="./public/screenshots/12.png" width="250"/></td>
+  </tr>
+  <tr>
+    <td><img src="./public/screenshots/13.png" width="250"/></td>
+    <td><img src="./public/screenshots/14.png" width="250"/></td>
+    <td><img src="./public/screenshots/15.png" width="250"/></td>
+  </tr>
+</table>
+
+</div>
+
+---
+
+## Notes
+
+-   All functional requirements completed and tested with `Postman` & `Dashboard`
+-   Filament Admin Panel added for better dashboard experience
+-   Secure inputs & validation implemented
+-   Ready for deployment on shared hosting, Vercel, or Render

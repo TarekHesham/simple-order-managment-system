@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\Api\V1\Admin\{
     CustomerController,
-    ProductController
+    ProductController,
+    SupplierController
 };
 use App\Http\Controllers\Api\V1\Staff\{
     CustomerController as StaffCustomerController,
@@ -32,21 +33,14 @@ Route::withoutMiddleware('auth:sanctum')->group(function () {
 
 // Admin routes
 Route::middleware('role:admin')->prefix('admin')->group(function () {
-    // Customers CRUD
+    // Customers Management
     Route::apiResource('customers', CustomerController::class);
 
-    // Products CRUD
+    // Products Management
     Route::apiResource('products', ProductController::class);
 
-    // Order Management
-    Route::controller(OrderController::class)
-        ->prefix('orders')
-        ->group(function () {
-            Route::get('/', 'index');
-            Route::post('/', 'store');
-            Route::post('/{order}/refund', 'refundOrder');
-            Route::post('/{order}/items/{item}/refund', 'refundItem');
-        });
+    // Suppliers Management
+    Route::apiResource('suppliers', SupplierController::class);
 });
 
 // Staff routes
@@ -55,7 +49,10 @@ Route::middleware('role:staff|admin')->group(function () {
     Route::apiResource('customers', StaffCustomerController::class)->only('index', 'show');
 
     // Products
-    Route::apiResource('products', StaffProductController::class)->only('index');
+    Route::get('products', [StaffProductController::class, 'index']);
+
+    // Suppliers Management
+    Route::get('suppliers', [SupplierController::class, 'index']);
 
     // Order Management
     Route::controller(OrderController::class)

@@ -101,7 +101,7 @@ class OrderService
             $remaining    = $amount;
             $distributed  = 0;
             $refundedItems = collect();
-            $stockUpdates  = []; // لتجميع الكميات الراجعة للمخزون
+            $stockUpdates  = [];
 
             foreach ($items as $index => $item) {
                 if ($remaining <= 0) break;
@@ -111,7 +111,6 @@ class OrderService
 
                 $take = min($itemRemaining, round(($item->total_price / $order->total_amount) * $amount, 2));
 
-                // آخر Item بياخد المتبقي علشان ميحصلش rounding gaps
                 if ($index === $items->count() - 1) {
                     $take = min($itemRemaining, $remaining);
                 }
@@ -135,7 +134,6 @@ class OrderService
                 $item->refunded_quantity = $item->refunded_quantity + $proportionalQty;
                 $item->save();
 
-                // هنا بدل ما نعمل increment لكل منتج بنجمعهم
                 if ($proportionalQty > 0) {
                     if (!isset($stockUpdates[$item->product_id])) {
                         $stockUpdates[$item->product_id] = 0;
@@ -181,7 +179,6 @@ class OrderService
                 }
             }
 
-            // هنا نعمل Bulk update للمخزون
             foreach ($stockUpdates as $productId => $qty) {
                 Product::where('id', $productId)->lockForUpdate()->increment('stock', $qty);
             }

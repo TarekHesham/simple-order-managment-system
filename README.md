@@ -119,7 +119,8 @@ Additionally, the project includes a **Filament Admin Dashboard** for enhanced u
 -   **Database:** MySQL
 -   **ORM:** Eloquent
 -   **Frontend:** Filament Admin Panel
--   **Architecture:** MVC
+-   **Architecture:** MVC, Service Pattern, Feature-Based
+-   **Design Patterns:** DTOs, Observer
 -   **Authentication:** Laravel Sanctum
 -   **Validation:** Form Requests
 -   **Deployment-ready:** Environment variables via `.env`

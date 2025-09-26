@@ -120,7 +120,7 @@ Additionally, the project includes a **Filament Admin Dashboard** for enhanced u
 -   **ORM:** Eloquent
 -   **Frontend:** Filament Admin Panel
 -   **Architecture:** MVC
--   **Authentication:** Laravel Sunctom
+-   **Authentication:** Laravel Sanctum
 -   **Validation:** Form Requests
 -   **Deployment-ready:** Environment variables via `.env`
 

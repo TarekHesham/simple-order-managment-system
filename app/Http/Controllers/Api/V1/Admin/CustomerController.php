@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
-use App\Services\CustomerService;
 use App\DTOs\CustomerData;
+use App\Services\CustomerService;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCustomerRequest;
-use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Requests\{StoreCustomerRequest, UpdateCustomerRequest};
 use App\Http\Resources\CustomerResource;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\{JsonResponse, Request};
 
 class CustomerController extends Controller
 {
@@ -24,9 +22,13 @@ class CustomerController extends Controller
         $perPage = $request->input('per_page', 10);
         $search = $request->input('q');
 
+        if (! is_int($perPage)) {
+            return $this->errorResponse('Per page must be an integer');
+        }
+
         $customers = $this->service->paginate($perPage, $search);
 
-        if (! $customers) {
+        if ($customers->isEmpty()) {
             return $this->errorResponse('Customers not found');
         }
 

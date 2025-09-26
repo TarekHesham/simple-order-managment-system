@@ -49,11 +49,13 @@ class CustomerController extends Controller
     public function show(int $id): JsonResponse
     {
         $customer = $this->service->find($id);
+
         if (! $customer) {
             return $this->errorResponse('Customer not found', 404);
         }
+
         return $this->successResponse(
-            new CustomerResource($customer),
+            CustomerResource::make($customer),
             'Customer retrieved successfully'
         );
     }
@@ -66,7 +68,7 @@ class CustomerController extends Controller
             return $this->errorResponse('Customer not found', 404);
         }
         return $this->successResponse(
-            new CustomerResource($customer),
+            CustomerResource::make($customer),
             'Customer updated successfully'
         );
     }

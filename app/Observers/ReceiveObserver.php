@@ -11,7 +11,7 @@ class ReceiveObserver
      */
     public function created(Receive $receive): void
     {
-        $receive->item->increment('stock', $receive->quantity);
+        $receive->product->increment('stock', $receive->quantity);
     }
 
     /**
@@ -20,8 +20,15 @@ class ReceiveObserver
     public function updated(Receive $receive): void
     {
         if ($receive->isDirty('quantity')) {
-            $receive->item->decrement('stock', $receive->getOriginal('quantity'));
-            $receive->item->increment('stock', $receive->quantity);
+            $originalQty = $receive->getOriginal('quantity');
+            $newQty = $receive->quantity;
+            $product = $receive->product;
+
+            // Subtract original quantity but not below 0
+            $product->stock = max(0, $product->stock - $originalQty);
+
+            $product->stock += $newQty;
+            $product->save();
         }
     }
 
@@ -30,6 +37,8 @@ class ReceiveObserver
      */
     public function deleted(Receive $receive): void
     {
-        $receive->item->decrement('stock', $receive->quantity);
+        $product = $receive->product;
+        $product->stock = max(0, $product->stock - $receive->quantity);
+        $product->save();
     }
 }

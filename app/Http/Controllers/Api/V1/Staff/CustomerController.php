@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Staff;
 use App\Services\CustomerService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CustomerResource;
 
 class CustomerController extends Controller
 {
@@ -15,7 +16,7 @@ class CustomerController extends Controller
     public function index(): JsonResponse
     {
         $customers = $this->service->paginate();
-        return $this->successResponsePaginate($customers->items(), $customers, 'Customers retrieved successfully');
+        return $this->successResponsePaginate(CustomerResource::collection($customers), $customers, 'Customers retrieved successfully');
     }
 
     public function show(int $id): JsonResponse
@@ -24,6 +25,6 @@ class CustomerController extends Controller
         if (! $customer) {
             return $this->errorResponse('Customer not found', 404);
         }
-        return $this->successResponse($customer, 'Customer retrieved successfully');
+        return $this->successResponse(CustomerResource::make($customer), 'Customer retrieved successfully');
     }
 }

@@ -48,7 +48,7 @@ class OrderController extends Controller
 
         try {
             $order = $this->service->createOrder($dto);
-            return $this->successResponse(new OrderResource($order), 'Order created successfully', 201);
+            return $this->successResponse(OrderResource::make($order), 'Order created successfully', 201);
         } catch (\Throwable $e) {
             return $this->errorResponse($e->getMessage(), 422);
         }
@@ -66,7 +66,7 @@ class OrderController extends Controller
 
         try {
             $order = $this->service->refundOrder($order, $amount, $reason, $processedBy);
-            return $this->successResponse(new OrderResource($order), 'Order refunded successfully');
+            return $this->successResponse(OrderResource::make($order), 'Order refunded successfully');
         } catch (\Throwable $e) {
             return $this->errorResponse($e->getMessage(), 422);
         }

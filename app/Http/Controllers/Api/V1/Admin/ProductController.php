@@ -41,7 +41,7 @@ class ProductController extends Controller
         $dto = ProductData::fromArray($request->validated());
         $product = $this->service->store($dto);
         return $this->successResponse(
-            new ProductResource($product),
+            ProductResource::make($product),
             'Product created successfully'
         );
     }
@@ -49,7 +49,7 @@ class ProductController extends Controller
     public function show(Product $product): JsonResponse
     {
         return $this->successResponse(
-            new ProductResource($product),
+            ProductResource::make($product),
             'Product retrieved successfully'
         );
     }
@@ -64,7 +64,7 @@ class ProductController extends Controller
         ]);
         $updated = $this->service->update($product, $dto);
         return $this->successResponse(
-            new ProductResource($updated),
+            ProductResource::make($updated),
             'Product updated successfully'
         );
     }

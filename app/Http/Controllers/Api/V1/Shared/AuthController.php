@@ -25,8 +25,7 @@ class AuthController extends Controller
         }
 
         $user->token = $user->createToken("auth_token_{$user->id}")->plainTextToken;
-        $user = new UserResource($user->load('permissions'));
 
-        return $this->successResponse($user, 'تم تسجيل الدخول بنجاح');
+        return $this->successResponse(UserResource::make($user->load('permissions')), 'User logged in successfully');
     }
 }

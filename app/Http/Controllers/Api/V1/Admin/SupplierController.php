@@ -28,19 +28,19 @@ class SupplierController extends Controller
     {
         $dto = SupplierData::fromArray($request->validated());
         $supplier = $this->service->create($dto);
-        return $this->successResponse(new SupplierResource($supplier), 'Supplier created successfully', 201);
+        return $this->successResponse(SupplierResource::make($supplier), 'Supplier created successfully', 201);
     }
 
     public function show(Supplier $supplier): JsonResponse
     {
-        return $this->successResponse(new SupplierResource($supplier), 'Supplier retrieved successfully');
+        return $this->successResponse(SupplierResource::make($supplier), 'Supplier retrieved successfully');
     }
 
     public function update(SupplierRequest $request, Supplier $supplier): JsonResponse
     {
         $dto = SupplierData::fromArray($request->validated());
         $updated = $this->service->update($supplier, $dto);
-        return $this->successResponse(new SupplierResource($updated), 'Supplier updated successfully');
+        return $this->successResponse(SupplierResource::make($updated), 'Supplier updated successfully');
     }
 
     public function destroy(Supplier $supplier): JsonResponse

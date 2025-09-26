@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\CustomersWidget;
+use App\Filament\Widgets\TotalOrdersWidget;
 use Filament\Http\Middleware\{
     Authenticate,
     AuthenticateSession,
@@ -37,7 +39,8 @@ class DashboardPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
+                TotalOrdersWidget::class,
+                CustomersWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

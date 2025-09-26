@@ -13,7 +13,7 @@ class Order extends Model
         'customer_id',
         'total_amount',
         'refunded_amount',
-        'status', // pending, completed, cancelled, refunded
+        'status', // pending, completed, cancelled, refunded, partial_refund
     ];
 
     protected $casts = [

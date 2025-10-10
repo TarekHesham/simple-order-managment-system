@@ -1,6 +1,6 @@
 # Simple Order Management System
 
-<img src="./public/banner.webp" style="margin-inline: auto; width: 30vw; display:block;margin-block:25px;"/>
+<img src="./public/banner.webp" style="margin-inline:auto;width:30vw;display:block;margin-block:25px;"/>
 
 A **Simple Order Management System** built with **Laravel 12** and **MySQL**, designed to manage customers, products, and orders efficiently. This project was completed as a technical assessment for **SIDEUP**.
 

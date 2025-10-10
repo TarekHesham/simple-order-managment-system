@@ -1,5 +1,7 @@
 # Simple Order Management System
 
+<img src="./public/banner.webp" style="margin-inline: auto; width: 30vw; display:block;margin-block:25px;"/>
+
 A **Simple Order Management System** built with **Laravel 12** and **MySQL**, designed to manage customers, products, and orders efficiently. This project was completed as a technical assessment for **SIDEUP**.
 
 ---
@@ -16,6 +18,8 @@ This system allows users to:
 
 Additionally, the project includes a **Filament Admin Dashboard** for enhanced usability.
 
+<img src="./public/screenshots/1.png"/>
+
 ---
 
 ## Database
@@ -24,7 +28,7 @@ Additionally, the project includes a **Filament Admin Dashboard** for enhanced u
 -   Laravel Migrations and Seeders included
 -   Tables:
 
-<img src="./public/ERD.png" style="margin-x:auto;"/>
+<img src="./public/ERD.png" style="margin-inline:auto; display:block;"/>
 
 ---
 
